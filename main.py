@@ -17,11 +17,14 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
-from dotenv import load_dotenv
-from os import getenv
+# from dotenv import load_dotenv
+# from os import getenv
+from os import environ
 
-load_dotenv()
-API_TOKEN = getenv("TOKEN")
+# load_dotenv()
+# TOKEN = getenv("TOKEN")
+
+TOKEN = environ.get("TOKEN")
 
 # Настройка логирования
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - \
@@ -30,7 +33,7 @@ logger = logging.getLogger(__name__)
 
 # Инициализация бота, диспетчера и планировщика
 bot = Bot(
-    token=API_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+    token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML)
 )
 storage = MemoryStorage()
 dp = Dispatcher(storage=storage)
