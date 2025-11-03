@@ -1,16 +1,16 @@
 {
-  "-1003205965641": [
+  "-1002312921043": [
     {
       "poll_name": "Треня, среда, \"Корал\" 20:00. Отмечаемся",
-      "start_day": 0,
+      "start_day": 1,
       "start_time": {
-        "hour": 19,
-        "minute": 12
+        "hour": 12,
+        "minute": 0
       },
-      "end_day": 0,
+      "end_day": 2,
       "end_time": {
         "hour": 19,
-        "minute": 13
+        "minute": 0
       }
     }
   ]
