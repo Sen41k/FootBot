@@ -16,14 +16,14 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
-from dotenv import load_dotenv
-from os import getenv
-# from os import environ
+# from dotenv import load_dotenv
+# from os import getenv
+from os import environ
 
-load_dotenv()
-TOKEN = getenv("TOKEN")
+# load_dotenv()
+# TOKEN = getenv("TOKEN")
 
-# TOKEN = environ.get("TOKEN")
+TOKEN = environ.get("TOKEN")
 
 # Настройка логирования
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
