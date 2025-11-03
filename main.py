@@ -16,14 +16,14 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
-# from dotenv import load_dotenv
-# from os import getenv
-from os import environ
+from dotenv import load_dotenv
+from os import getenv
+# from os import environ
 
-# load_dotenv()
-# TOKEN = getenv("TOKEN")
+load_dotenv()
+TOKEN = getenv("TOKEN")
 
-TOKEN = environ.get("TOKEN")
+# TOKEN = environ.get("TOKEN")
 
 # Настройка логирования
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -173,16 +173,10 @@ def format_preview_alert(poll_data: Dict) -> str:
 
     # Ограничиваем длину сообщения для всплывающего окна
     message = "Предпросмотр голосов\n"
-    message += f"{poll_data['settings']['poll_name']}\n\n"
-
-    message += f"✅ Придут: {yes_count}\n"
-    message += f"❌ Не придут: {no_count}\n"
-    message += f"❓ Под вопросом: {maybe_count}\n"
-    message += f"👥 Всего: {total_votes}\n\n"
 
     # Показываем имена в каждой категории
     if yes_voters:
-        message += "✅ Приходят:\n"
+        message += "\n✅ Приходят:\n"
         for name in yes_voters:
             message += f"• {name}\n"
 
