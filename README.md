@@ -34,12 +34,8 @@ pip install -r requirements.txt
 
 /manual_poll - ручной запуск опроса
 
-/manual_results - ручная публикация результатов
-
 /debug_polls - отладочная информация
 
 ## Требования
 
 Бот должен быть администратором группы
-
-Python 3.8+
