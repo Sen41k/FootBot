@@ -153,8 +153,8 @@ def format_poll_message(poll_name: str, votes_data: Dict, poll_id: str) -> str:
 ❓ Под вопросом: {maybe_count} чел.
 👥 Всего проголосовало: {total_votes} чел.
 
-ℹ️ <i>Можно менять голос в любое время!</i>
-👀 <i>Нажмите "Предпросмотр голосов" чтобы увидеть кто проголосовал (всплывающее окно)</i>
+ℹ️ <i>Можно менять голос в любое время</i>
+👀 <i>Нажми "Предпросмотр голосов", чтобы увидеть, кто проголосовал</i>
 """
 
     return message
@@ -428,7 +428,7 @@ async def handle_start(message: Message):
     if message.chat.type in ['group', 'supergroup']:
         await message.answer("Бот запущен! Администраторы могут использовать /set_poll для настройки.")
     else:
-        await message.answer("Бot запущен! Добавьте меня в группу.")
+        await message.answer("Бot запущен! Добавь меня в группу.")
 
 
 @dp.message(Command("set_poll"))
@@ -456,7 +456,7 @@ async def process_poll_name(message: Message, state: FSMContext):
 
     await state.update_data(poll_name=message.text)
     markup = get_days_inline_markup()
-    await message.answer("Выберите день недели для начала опроса:", reply_markup=markup)
+    await message.answer("Выбери день недели для начала опроса:", reply_markup=markup)
     await state.set_state(PollCreationState.waiting_for_start_day)
 
 
@@ -474,12 +474,12 @@ async def handle_day_selection(callback: types.CallbackQuery, state: FSMContext)
 
     if current_state == PollCreationState.waiting_for_start_day:
         await state.update_data(start_day=day_number)
-        await callback.message.answer(f"Выбран день начала: {day_name}\nВведите время начала (например: 22:05):")
+        await callback.message.answer(f"Выбран день начала: {day_name}\nВведи время начала (например: 22:05):")
         await state.set_state(PollCreationState.waiting_for_start_time)
 
     elif current_state == PollCreationState.waiting_for_end_day:
         await state.update_data(end_day=day_number)
-        await callback.message.answer(f"Выбран день окончания: {day_name}\nВведите время окончания (например: 18:00):")
+        await callback.message.answer(f"Выбран день окончания: {day_name}\nВведи время окончания (например: 18:00):")
         await state.set_state(PollCreationState.waiting_for_end_time)
 
     await callback.answer()
@@ -493,7 +493,7 @@ async def process_start_day(message: Message, state: FSMContext):
         return
 
     markup = get_days_inline_markup()
-    await message.answer("Пожалуйста, выберите день из кнопок ниже:", reply_markup=markup)
+    await message.answer("Пожалуйста, выбери день из кнопок ниже:", reply_markup=markup)
 
 
 @dp.message(PollCreationState.waiting_for_start_time)
@@ -515,11 +515,11 @@ async def process_start_time(message: Message, state: FSMContext):
         await state.update_data(start_time=start_time)
 
         markup = get_days_inline_markup()
-        await message.answer("Выберите день недели для окончания опроса:", reply_markup=markup)
+        await message.answer("Выбери день недели для окончания опроса:", reply_markup=markup)
         await state.set_state(PollCreationState.waiting_for_end_day)
 
     except (ValueError, IndexError):
-        await message.answer("Неверный формат времени. Введите время в формате ЧЧ:MM (например: 22:05):")
+        await message.answer("Неверный формат времени. Введи время в формате ЧЧ:MM (например: 22:05):")
 
 
 @dp.message(PollCreationState.waiting_for_end_day)
@@ -530,7 +530,7 @@ async def process_end_day(message: Message, state: FSMContext):
         return
 
     markup = get_days_inline_markup()
-    await message.answer("Пожалуйста, выберите день из кнопок ниже:", reply_markup=markup)
+    await message.answer("Пожалуйста, выбери день из кнопок ниже:", reply_markup=markup)
 
 
 @dp.message(PollCreationState.waiting_for_end_time)
@@ -589,7 +589,7 @@ async def process_end_time(message: Message, state: FSMContext):
         await state.clear()
 
     except (ValueError, IndexError):
-        await message.answer("Неверный формат времени. Введите время в формате ЧЧ:MM (например: 18:00):")
+        await message.answer("Неверный формат времени. Введи время в формате ЧЧ:MM (например: 18:00):")
 
 
 @dp.message(Command("poll_list"))
@@ -602,7 +602,7 @@ async def handle_poll_list(message: Message):
     chat_id = str(message.chat.id)
 
     if chat_id not in poll_settings or not poll_settings[chat_id]:
-        await message.answer("В этой группе нет настроенных опросов. Используйте /set_poll для создания.")
+        await message.answer("В этой группе нет настроенных опросов. Используй /set_poll для создания.")
         return
 
     response = "📋 Список опросов в этой группе:\n\n"
@@ -660,7 +660,7 @@ async def handle_delete_poll(message: Message):
                          f"   Начало: {start_day_name} в {start_time_str}\n"
                          f"   Конец: {end_day_name} в {end_time_str}\n\n")
 
-        response += "Для удаления используйте: /delete_poll <номер>"
+        response += "Для удаления используй: /delete_poll <номер>"
         await message.answer(response)
 
     elif len(args) == 2:
@@ -677,7 +677,7 @@ async def handle_delete_poll(message: Message):
 
                 await message.answer(f"✅ Опрос '{deleted_poll['poll_name']}' удален!")
             else:
-                await message.answer("❌ Неверный номер опроса. Используйте /poll_list для просмотра списка.")
+                await message.answer("❌ Неверный номер опроса. Используй /poll_list для просмотра списка.")
 
         except ValueError:
             await message.answer("❌ Использование: /delete_poll <номер> (номер должен быть числом)")
@@ -724,7 +724,7 @@ async def handle_manual_poll(message: Message):
 
         if chat_id in poll_settings and poll_settings[chat_id]:
             if len(poll_settings[chat_id]) > 1:
-                await message.answer("Используйте /manual_poll <номер> для запуска опроса. Список: /poll_list")
+                await message.answer("Используй /manual_poll <номер> для запуска опроса. Список: /poll_list")
                 return
 
             poll_id = await create_poll(chat_id, poll_settings[chat_id][0])
