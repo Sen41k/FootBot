@@ -199,8 +199,6 @@ def format_preview_alert(poll_data: Dict) -> str:
     if total_votes == 0:
         message += "\n😢 Пока никто не проголосовал"
 
-    message += f"\n⏰ {datetime.now().strftime('%H:%M:%S')}"
-
     # Обрезаем сообщение если слишком длинное (ограничение Telegram)
     if len(message) > 200:
         message = message[:197] + "..."
