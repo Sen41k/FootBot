@@ -621,7 +621,7 @@ async def handle_poll_list(message: Message):
                      f"   Начало: {start_day_name} в {start_time_str}\n"
                      f"   Конец: {end_day_name} в {end_time_str}\n\n")
 
-    response += "Для удаления используйте: /delete_poll <номер>"
+    response += "Для удаления используйте: /delete_poll (номер)"
     await message.answer(response)
 
 
@@ -660,7 +660,7 @@ async def handle_delete_poll(message: Message):
                          f"   Начало: {start_day_name} в {start_time_str}\n"
                          f"   Конец: {end_day_name} в {end_time_str}\n\n")
 
-        response += "Для удаления используй: /delete_poll <номер>"
+        response += "Для удаления используй: /delete_poll (номер)"
         await message.answer(response)
 
     elif len(args) == 2:
@@ -680,10 +680,10 @@ async def handle_delete_poll(message: Message):
                 await message.answer("❌ Неверный номер опроса. Используй /poll_list для просмотра списка.")
 
         except ValueError:
-            await message.answer("❌ Использование: /delete_poll <номер> (номер должен быть числом)")
+            await message.answer("❌ Использование: /delete_poll (номер) (номер должен быть числом)")
 
     else:
-        await message.answer("❌ Использование: /delete_poll или /delete_poll <номер>")
+        await message.answer("❌ Использование: /delete_poll или /delete_poll (номер)")
 
 
 @dp.message(Command("delete_all_polls"))
@@ -724,7 +724,7 @@ async def handle_manual_poll(message: Message):
 
         if chat_id in poll_settings and poll_settings[chat_id]:
             if len(poll_settings[chat_id]) > 1:
-                await message.answer("Используй /manual_poll <номер> для запуска опроса. Список: /poll_list")
+                await message.answer("Используй /manual_poll (номер) для запуска опроса. Список: /poll_list")
                 return
 
             poll_id = await create_poll(chat_id, poll_settings[chat_id][0])
